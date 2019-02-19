@@ -3,8 +3,8 @@ A Udacity course project and example on data analysis and git/github version con
 
 ### Date created
 	Project created on:	19.02.2019 10:00
-	Readme created on:	 19.02.2019 10:15
-	Last update:		   19.02.2019 14:15
+	Readme created on:	19.02.2019 10:15
+	Last update:				19.02.2019 14:51
 
 ### Description
 This is just an example on analyzing data with python and a console interface.
