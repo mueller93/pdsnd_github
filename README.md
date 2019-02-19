@@ -7,7 +7,9 @@ Readme created on:	19.02.2019
 Last update:		19.02.2019
 
 ### Description
-
+This is just an example on analyzing data with python and a console interface.
+You will see a few prompts when starting the bikeshare.py file and will be guided through the analysis.
+After adding a few filters, the given data (not included on github) will be computed and you can view the result.
 
 ### Files used
 bikeshare.py
