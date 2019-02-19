@@ -7,7 +7,7 @@ import operator
 import sys
 import os
 '''
-Definition of a user input possibilies
+Definition of a user input possibilities
 '''
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
@@ -71,9 +71,9 @@ def get_filters():
     Asks user to specify a city, month, and day to analyze.
 
     Returns:
-        (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
-        (str) day - name of the day of week to filter by, or "all" to apply no day filter
+        (str) city - name of the city to analyze. (Must be specified)
+        (str) month - name of the month to filter by, or "all" to proceed without filter
+        (str) day - name of the day of week to filter by, or "all" to proceed without filter
     """
     #initialize variables
     city = "none"
@@ -156,7 +156,7 @@ def dict_reverse(value, dictionary):
 def clear_screen():
     '''
     Clear the console screen to have a clean window if requiered
-    Note: found on Stackoverflow - https://stackoverflow.com/questions/2084508/clear-terminal-in-python
+    Note: found on Stackoverflow - https://stackoverflow.com/questions/4810537/how-to-clear-the-screen-in-python
     '''
     os.system('cls')
 
