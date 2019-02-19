@@ -1,18 +1,23 @@
+# Explore US Bikeshare Data
+
+
 ### Date created
 Project created on:	19.02.2019
 Readme created on:	19.02.2019
 Last update:		19.02.2019
 
-### Project Title
-Explore US Bikeshare Data
-
 ### Description
+
 
 ### Files used
 bikeshare.py
 README.md
 
 ### Credits
+Stackoverflow.com
+Tutorialspoint.com
+udacity.com
+
 # Used references
 
 Clear the console screen to have a clean window if requiered
