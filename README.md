@@ -1,5 +1,5 @@
 # Explore US Bikeshare Data
-
+A Udacity course project and example for data analysis and git/githab version control and collaboration.
 
 ### Date created
 Project created on:	19.02.2019
@@ -10,6 +10,7 @@ Last update:		19.02.2019
 This is just an example on analyzing data with python and a console interface.
 You will see a few prompts when starting the bikeshare.py file and will be guided through the analysis.
 After adding a few filters, the given data (not included on github) will be computed and you can view the result.
+Before closing or changing any filters, you will be provided to show some (or even all) raw data.
 
 ### Files used
 bikeshare.py
