@@ -5,6 +5,7 @@ import csv
 import datetime as dt
 import operator
 import sys
+import os
 '''
 Definition of a user input possibilies
 '''
@@ -157,7 +158,7 @@ def clear_screen():
     Clear the console screen to have a clean window if requiered
     Note: found on Stackoverflow - https://stackoverflow.com/questions/2084508/clear-terminal-in-python
     '''
-    print(chr(27)+"[2J")
+    os.system('cls')
 
 def load_data(city, month, day):
     """
