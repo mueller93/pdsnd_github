@@ -159,53 +159,6 @@ def clear_screen():
     '''
     print(chr(27)+"[2J")
 
-class progressbar:
-    """
-    Show progress of a given function while mass data is computed
-
-    Should be first initialized and goal set, afterwards it may be started
-    """
-    def __init__(self):
-        self.__percAct = 0
-        self.__percLast = 0
-        self.__percGoal = 100
-        self.__pgAct = 0
-        self.__pgGoal = 100
-
-
-    def setGoal(self, goal):
-        ''' Set the maximum value the raw progress can reach '''
-        self.__pgGoal = goal
-
-    def start(self):
-        ''' Print 0% before start of processing '''
-        print('{}%'.format(self.__percAct),end='')
-
-    def progress(self, actProgress):
-        ''' Called while processing to indicate the progress '''
-        self.__pgAct = actProgress
-        self.__calc_and_print()
-
-    def __calc_and_print(self):
-        ''' Inner function to calculate the progress and print it to the user's screen '''
-        self.__percAct = int(self.__pgAct * self.__percGoal / self.__pgGoal)
-        if self.__percAct > self.__percLast:
-            if self.__percAct % 2 == 0:
-                if self.__percAct % 10 == 0:
-                    print('{}%'.format(self.__percAct),end='')
-                else:
-                    print('=',end='')
-            self.__percLast = self.__percAct
-
-    def end(self):
-        ''' Print 100% when finished processing '''
-        print('{}%'.format(self.__percGoal))
-
-    def reset(self):
-        ''' reinitialize, usualy not needed '''
-        self.__init__()
-
-
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
