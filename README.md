@@ -1,5 +1,5 @@
 # Explore US Bikeshare Data
-A Udacity course project and example for data analysis and git/githab version control and collaboration.
+A Udacity course project and example on data analysis and git/github version control and collaboration.
 
 ### Date created
 Project created on:	19.02.2019
