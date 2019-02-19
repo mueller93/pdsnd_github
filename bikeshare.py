@@ -91,7 +91,7 @@ def get_filters():
         print('What about the month? You can eighter type it\'s name or the corresponding number. For the whole year, type \'all\' or 0.')
         month = input('Month selection: ')
         month = check_filter('month', month, MONTHS)
-        
+
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     while(day == "none"):
@@ -99,15 +99,15 @@ def get_filters():
         print('To explorer all days just type \'all\' or 0.')
         day = input("Day selection: ")
         day = check_filter('day', day, DAYS)
-        
+
     # reverse lookup integer values
     if month.isnumeric():
         month = dict_reverse(month, MONTHS)
-        
+
     if day.isnumeric():
         day = dict_reverse(day, DAYS)
-     
-    
+
+
     print('-'*40)
     summary = "Your city is {}, your month is {}, and your weekday is {}. We are almost ready to go.".format(city.title(), month, day)
     print(summary)
@@ -120,7 +120,7 @@ def check_filter(title, input_data, dictionary):
     Args:
         (str) title - name of the input value, used for response print()
         (str) input_data - user's input, checked against the given dictionary
-        (dict) dictionary - possible input values 
+        (dict) dictionary - possible input values
     Returns:
         (str) intut_data - will be just returned as it is if allowed, or modified and returned if not inside the dictionary
     """
@@ -134,7 +134,7 @@ def check_filter(title, input_data, dictionary):
         elif not input_data.isnumeric():
             print("Sorry, I have no data about the given " + title + ". Did you type it's whole name correctly? Let's retry...")
             input_data = "none"
-    
+
 
     return input_data
 
@@ -144,7 +144,7 @@ def dict_reverse(value, dictionary):
 
     Args:
         (str) value - value to find inside the dictionary
-        (dict) dictionary - dict to lookup for the given value 
+        (dict) dictionary - dict to lookup for the given value
     Returns:
         (str) d_key - key for the given value
     """
@@ -155,14 +155,14 @@ def dict_reverse(value, dictionary):
 def clear_screen():
     '''
     Clear the console screen to have a clean window if requiered
-    Note: found on Stackoverflow - https://stackoverflow.com/questions/2084508/clear-terminal-in-python 
+    Note: found on Stackoverflow - https://stackoverflow.com/questions/2084508/clear-terminal-in-python
     '''
     print(chr(27)+"[2J")
 
 class progressbar:
     """
     Show progress of a given function while mass data is computed
-    
+
     Should be first initialized and goal set, afterwards it may be started
     """
     def __init__(self):
@@ -171,21 +171,21 @@ class progressbar:
         self.__percGoal = 100
         self.__pgAct = 0
         self.__pgGoal = 100
-        
-        
+
+
     def setGoal(self, goal):
         ''' Set the maximum value the raw progress can reach '''
         self.__pgGoal = goal
-    
+
     def start(self):
         ''' Print 0% before start of processing '''
         print('{}%'.format(self.__percAct),end='')
-    
+
     def progress(self, actProgress):
         ''' Called while processing to indicate the progress '''
         self.__pgAct = actProgress
         self.__calc_and_print()
-        
+
     def __calc_and_print(self):
         ''' Inner function to calculate the progress and print it to the user's screen '''
         self.__percAct = int(self.__pgAct * self.__percGoal / self.__pgGoal)
@@ -194,13 +194,13 @@ class progressbar:
                 if self.__percAct % 10 == 0:
                     print('{}%'.format(self.__percAct),end='')
                 else:
-                    print('=',end='')             
+                    print('=',end='')
             self.__percLast = self.__percAct
-    
+
     def end(self):
         ''' Print 100% when finished processing '''
         print('{}%'.format(self.__percGoal))
-    
+
     def reset(self):
         ''' reinitialize, usualy not needed '''
         self.__init__()
@@ -218,7 +218,7 @@ def load_data(city, month, day):
         df - Pandas DataFrame containing city data filtered by month and day
     """
     clear_screen()
-    print('Please wait while I apply your filters to the bikeshare data...') 
+    print('Please wait while I apply your filters to the bikeshare data...')
     starttime = dt.datetime.now()
     filename = CITY_DATA.get(city)
     rentals = []
@@ -231,13 +231,9 @@ def load_data(city, month, day):
     last = len(raw_rentals) -1
     month_num = MONTHS.get(month)
     day_num = DAYS.get(day)
-    #pg = progressbar()
-    #pg.setGoal(last)
-    #pg.start()
     print_progress(0, last, 'Progress: ', 'Complete', 1, 50)
     rentals.append(header)
     while act < last:
-        #pg.progress(act)
         print_progress(act+1, last, 'Progress: ', 'Complete', 1, 50)
         actDate = dt.datetime.strptime(raw_rentals[act][1], DATE_FORMAT)
         actMonth = actDate.month
@@ -257,7 +253,6 @@ def load_data(city, month, day):
                 rentals.append(raw_rentals[act])
         act += 1
     duration = dt.datetime.now() - starttime
-    #pg.end()
     print('\nYour filtered data is now ready to analyze. This took {:.1f} seconds.\n\n'.format(duration.total_seconds()))
     print('-'*40)
     return rentals
@@ -291,12 +286,9 @@ def time_stats(df):
     """
     clear_screen()
     start_time = time.time()
-    #pg = progressbar()
     act = 1
     last = len(df) -1
-    #pg.setGoal(last)
     print('\nCalculating The Most Frequent Times of Travel...\n')
-    #pg.start()
     print_progress(0, last, 'Progress: ', 'Complete', 1, 50)
     months = {}
     weekdays = {}
@@ -304,7 +296,6 @@ def time_stats(df):
     timeCol = findColumn('start time', df[0])
     # get the top times
     while act < last:
-        #pg.progress(act)
         print_progress(act + 1, last, 'Progress: ', 'Complete', 1, 50)
         actDT  = dt.datetime.strptime(df[act][timeCol],DATE_FORMAT)
         actMonth = actDT.month
@@ -328,7 +319,6 @@ def time_stats(df):
     topWeekday = maxDictVal(weekdays)
     strTopWeekday = dict_reverse(topWeekday, DAYS)
     topHour = maxDictVal(hours)
-    pg.end()
     print('Ready. Here are the Most Frequent Times:')
     # display the most common month
     print('Most common month: {}'.format(strTopMonth.title()))
@@ -353,18 +343,15 @@ def combine_stations(startStation, endStation):
     tempLen = len(tempString) - 3
     tempString = tempString[:tempLen]
     return tempString
-    
+
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
    # clear_screen()
-   
+
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
-    #pg = progressbar()
     act = 1
     last = len(df) -1
-    #pg.setGoal(last)
-    #pg.start()
     print_progress(0, last, 'Progress: ', 'Complete', 1, 50)
     startStations = {}
     endStations = {}
@@ -372,7 +359,6 @@ def station_stats(df):
     iStartStation = findColumn('Start Station',df[0])
     iEndStation = findColumn('End Station', df[0])
     while act < last:
-        #pg.progress(act)
         print_progress(act+1, last, 'Progress: ', 'Complete', 1, 50)
         actStart = df[act][iStartStation]
         actEnd = df[act][iEndStation]
@@ -383,18 +369,17 @@ def station_stats(df):
         if actEnd in endStations:
             endStations[actEnd] += 1
         else:
-            endStations[actEnd] = 1  
+            endStations[actEnd] = 1
         combStation = combine_stations(actStart, actEnd)
         if combStation in combined:
             combined[combStation] += 1
         else:
             combined[combStation] = 1
-        
+
         act += 1
     topStart = maxDictVal(startStations)
     topEnd = maxDictVal(endStations)
     topCombined= maxDictVal(combined)
-    #pg.end()
     print('The station statistics are ready now. Here are the most commonly used stations:')
     # display most commonly used start station
     print('Start Station: {}'.format(topStart))
@@ -402,7 +387,7 @@ def station_stats(df):
     print('End Station: {}'.format(topEnd))
     # display most frequent combination of start station and end station trip
     print('Station Combination: {}'.format(topCombined))
-    
+
 
     print("\nThis took {:.2f} seconds.".format((time.time() - start_time)))
     print('-'*40)
@@ -413,15 +398,13 @@ def trip_duration_stats(df):
     #clear_screen()
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
-    pg = progressbar()
     act = 1
     last = len(df) -1
-    pg.setGoal(last)
-    pg.start()
     totalSecs = 0
     iDuration = findColumn('Trip Duration', df[0])
+    print_progress(0, last, 'Progress: ', 'Complete', 1, 50)
     while act < last:
-        pg.progress(act)
+        print_progress(act+1, last, 'Progress: ', 'Complete', 1, 50)
         actSecs = df[act][iDuration]
         totalSecs += float(actSecs)
         act += 1
@@ -430,7 +413,6 @@ def trip_duration_stats(df):
         meanSecs = totalSecs / last
     tSec = dt.timedelta(seconds=totalSecs)
     mSec = dt.timedelta(seconds=meanSecs)
-    pg.end()
     print('Time statistics are ready now. Here are some travel times:')
     # display total travel time
     print('Total travel time: {}'.format(tSec))
@@ -439,27 +421,6 @@ def trip_duration_stats(df):
 
     print("\nThis took {:.2f} seconds.".format((time.time() - start_time)))
     print('-'*40)
-
-def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█'):
-    """
-    REFERENCE : https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
-    Call in a loop to create terminal progress bar
-    @params:
-        iteration   - Required  : current iteration (Int)
-        total       - Required  : total iterations (Int)
-        prefix      - Optional  : prefix string (Str)
-        suffix      - Optional  : suffix string (Str)
-        decimals    - Optional  : positive number of decimals in percent complete (Int)
-        length      - Optional  : character length of bar (Int)
-        fill        - Optional  : bar fill character (Str)
-    """
-    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
-    filledLength = int(length * iteration // total)
-    bar = fill * filledLength + '-' * (length - filledLength)
-    print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end = '\r')
-    # Print New Line on Complete
-    if iteration == total: 
-        print()
 
 def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
     """
@@ -476,7 +437,7 @@ def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_lengt
     percents = str_format.format(100 * (iteration / float(total)))
     filled_length = int(round(bar_length * iteration / float(total)))
     bar = '█' * filled_length + '-' * (bar_length - filled_length)
-    
+
     sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix)),
 
     if iteration == total:
@@ -490,11 +451,9 @@ def user_stats(df):
     """
     print('\nCalculating User Stats...\n')
     start_time = time.time()
-    pg = progressbar()
     act = 1
     last = len(df) -1
-    pg.setGoal(last)
-    pg.start()
+    print_progress(0, last, 'Progress: ', 'Complete', 1, 50)
     Users = {}
     Genders = {}
     BirthYears = {}
@@ -512,7 +471,7 @@ def user_stats(df):
     if iBirth is None:
         CalcBirth = False
     while act < last:
-        pg.progress(act)
+        print_progress(act+1, last, 'Progress: ', 'Complete', 1, 50)
         #Calc Userstats
         if CalcUser:
             actUserType = df[act][iUser]
@@ -520,7 +479,7 @@ def user_stats(df):
                 Users[actUserType] += 1
             else:
                 Users[actUserType] = 1
-        #Calc Genderstats        
+        #Calc Genderstats
         if CalcGender:
             actGender = df[act][iGender]
             if actGender in Genders:
@@ -534,7 +493,7 @@ def user_stats(df):
                 BirthYears[actBirth] += 1
             else:
                 BirthYears[actBirth] = 1
-        #count up for next line       
+        #count up for next line
         act += 1
     if CalcBirth:
         topBirth = maxDictVal(BirthYears)
@@ -553,7 +512,6 @@ def user_stats(df):
                         mostRecent = float(Year)
         except:
             print('What happened? Year: {}'.format(Year))
-    pg.end()
     print('User statistics are ready now. Here some user related information:')
     # Display counts of user types
     if CalcUser:
@@ -607,7 +565,7 @@ def main():
         city, month, day = get_filters()
         #Now let's load the data filtered by the userinputs before
         df = load_data(city, month, day)
-        #Calculate some statistics        
+        #Calculate some statistics
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
