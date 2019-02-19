@@ -25,7 +25,8 @@ Before closing or changing any filters, you will be provided to show some (or ev
 
 	Clear the console screen to have a clean window if requiered
 		- Note: found on Stackoverflow
-		->https://stackoverflow.com/questions/2084508/clear-terminal-in-python
+		- Attention: this function has been changed as it did not work on windows command line
+		->https://stackoverflow.com/questions/4810537/how-to-clear-the-screen-in-python
 
 	Finds the key with the max integer value inside a dictionary and returns it
 		- Note: found on Stackoverflow

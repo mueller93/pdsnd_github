@@ -154,8 +154,8 @@ def dict_reverse(value, dictionary):
 
 def clear_screen():
     '''
-    Clear the console screen to have a clean window if requiered
-    Note: found on Stackoverflow - https://stackoverflow.com/questions/2084508/clear-terminal-in-python
+    Clear the console screen to have a clean window if requiered (bug fixed for windows)
+    Note: found on Stackoverflow - https://stackoverflow.com/questions/4810537/how-to-clear-the-screen-in-python
     '''
     print(chr(27)+"[2J")
 
